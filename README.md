@@ -54,7 +54,7 @@ $ service apache2 restart
 # Virtualhost
 $ nano /etc/apache2/sites-available/000-default.conf
 
-# Before DocumentRoot /var/www/html add the following lines
+# Before "DocumentRoot /var/www/html" line, add the following code
 <Directory /var/www/html>
     Options Indexes FollowSymLinks
     AllowOverride All

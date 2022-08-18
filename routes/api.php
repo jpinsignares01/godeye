@@ -23,4 +23,5 @@ Route::group([
 'prefix' => 'v1',
 ], function () {
     Route::post('planets', [HomeApiController::class, 'getPlanets'])->name('api.get_planets');
+    Route::post('person', [HomeApiController::class, 'getPerson'])->name('api.get_person');
 });

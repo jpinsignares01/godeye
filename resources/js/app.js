@@ -9,6 +9,8 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import moment from 'moment';
+import 'moment/locale/es'
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -33,11 +35,17 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-
+//Number format filter
 Vue.filter('formatNumber', function (value) {
     if (value && !/[0-9]/.test(value)) return value;
     const nf = new Intl.NumberFormat();
     return nf.format(value);
+})
+
+//Date filer
+moment.locale('es');
+Vue.filter('date_format', function (value) {
+    return moment(value).format('DD/MM/YYYY');
 })
 
 
