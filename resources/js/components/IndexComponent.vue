@@ -27,11 +27,11 @@
                 <div v-else>
                     <b-spinner size="sm"></b-spinner>
                 </div>
-                <nav class="text-center mt-3 w-100">
+                <nav v-if="!isProcessing" class="text-center mt-3 w-100">
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <button :disabled="!dataPlanets.previous" @click="prevPage()" class="btn btn-secondary">Previous page</button>
                         <li class="page-item"><a class="page-link">{{currentPage}}</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <button :disabled="!dataPlanets.next" @click="nextPage()" class="btn btn-secondary">Next page</button>
                     </ul>
                 </nav>
             </div>
@@ -54,6 +54,7 @@
         methods: {
             getPlanets() {
                 let me = this;
+                me.isProcessing = true;
                 let url = '/api/v1/planets';
                 axios.post(url, {
                     'page': me.currentPage,
@@ -62,10 +63,20 @@
                     console.log(response.data.results);
                     me.dataPlanets = response.data;
                     me.isProcessing = false;
+                    console.log(me.dataPlanets.previous);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+            },
+            // Pagination
+            prevPage () {
+                this.currentPage--;
+                this.getPlanets();
+            },
+            nextPage () {
+                this.currentPage++;
+                this.getPlanets();
             },
         },
     }
